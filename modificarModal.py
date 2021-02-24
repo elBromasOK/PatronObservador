@@ -3,6 +3,7 @@ from modificar import *
 from base_datos import *
 from tkinter import messagebox
 from peewee import DoesNotExist
+from observers import observadorModificar
 
 def show(variables, popupModificar):
     popupModificar.destroy()
@@ -13,6 +14,9 @@ def modifica(variables, popupModificar, elobjeto):
     lista = []
     for variable in variables:
         lista.append(variable.get())
+
+    # Patron observador
+    observer = observadorModificar(lista)
 
     try:
         verificar_id = Articulos.get(Articulos.ID == lista[0])

@@ -2,6 +2,8 @@ from tkinter import *
 from eliminar import *
 from base_datos import *
 from tkinter import messagebox
+from observers import observadorEliminar
+
 
 def show(variables, popupGuardar):
     popupGuardar.destroy()
@@ -16,11 +18,18 @@ def elimina(variables, popupEliminar, elobjeto):
 
         borrar = Articulos.get(Articulos.ID == lista[0])
         borrar.delete_instance()
+
+        # Patron observador
+        observer = observadorEliminar(borrar)
     
         elobjeto.mostrar()
         messagebox.showinfo(message="El ID %s se elimino satisfactoriamente." % borrar, title="Eliminar registro")
     except:
+        # Patron observador
+        observer = observadorEliminar(None)
         messagebox.showerror(message="El ID no existe en la BBDD.", title="Eliminar registro")
+
+
 def eliminar(objeto):
     popupEliminar = Toplevel()
     vars_eliminar = CrearFormEliminar(popupEliminar, campos)
