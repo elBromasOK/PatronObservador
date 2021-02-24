@@ -5,6 +5,7 @@ from tkinter import messagebox
 from peewee import DoesNotExist
 from observers import observadorModificar
 
+
 def show(variables, popupModificar):
     popupModificar.destroy()
 

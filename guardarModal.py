@@ -5,6 +5,7 @@ from base_datos import *
 from tkinter import messagebox
 from observers import observadorAlta
 
+
 def show(variables, popupGuardar):
     popupGuardar.destroy()
 

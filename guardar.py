@@ -1,4 +1,5 @@
 from tkinter import *
+
 archivo = 'persona'
 campos = ('Titulo', 'Descripcion')
 

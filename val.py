@@ -1,4 +1,6 @@
 import re
+
+
 def validar(cad):
     patron="^[A-Za-z]+(?:[ _-][A-Za-z]+)*$"
     try:

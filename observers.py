@@ -49,6 +49,7 @@ class observadorModificar(observadoresApp):
         print("--" * 25)
 
     def update_query(self):
+        # Aca falta incluir los registros del observador en la tabla modif.
         pass
 
 
@@ -71,4 +72,5 @@ class observadorEliminar(observadoresApp):
             print("--" * 25)
 
     def update_query(self):
+        # Aca falta incluir los registros del observador en la tabla elim.
         pass

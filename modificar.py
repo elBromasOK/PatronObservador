@@ -28,7 +28,7 @@ def CrearFormModificar(root, campos):
         var.set('---')
         variables.append(var)
     return variables
-    
+
 
 if __name__ == '__main__':
     root = Tk()

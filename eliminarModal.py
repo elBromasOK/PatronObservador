@@ -35,7 +35,6 @@ def eliminar(objeto):
     vars_eliminar = CrearFormEliminar(popupEliminar, campos)
     Button(popupEliminar, text='Eliminar', command=(lambda: elimina(vars_eliminar, popupEliminar, objeto))).pack()
     Button(popupEliminar, text='Cancelar', command=(lambda: show(vars_eliminar, popupEliminar))).pack()
-
     popupEliminar.grab_set()
     popupEliminar.focus_set()
     popupEliminar.wait_window()

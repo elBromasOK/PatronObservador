@@ -1,10 +1,3 @@
-# -*- coding: utf-8 -*-
-"""
-Created on Wed Dec 11 14:00:01 2019
-
-@author: Tomas
-"""
-
 from tkinter import *
 
 archivo = 'persona'

@@ -9,6 +9,7 @@ from modificarModal import *
 from base_datos import *
 from peewee import * 
 
+
 class Producto:
 
     def __init__(self, window):
