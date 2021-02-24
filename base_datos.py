@@ -69,7 +69,11 @@ class registrosElim(BaseModel):
         table_name = 'tablaelim'
 
 db.connect()
+
+# Se crea la tabla que se muestra en la app
 db.create_tables([Articulos])
+
+# Se crean las tablas de registros que salen de los observadores
 db.create_tables([registrosAlta])
 db.create_tables([registrosModif])
 db.create_tables([registrosElim])
