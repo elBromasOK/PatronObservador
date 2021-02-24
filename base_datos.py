@@ -21,6 +21,7 @@
 #     return mibase
 
 from peewee import *
+import datetime
 
 db = SqliteDatabase('baseprueba3.db')
 
@@ -37,13 +38,38 @@ class Articulos(BaseModel):
         table_name = 'tablaarticulos'
 
 class registrosAlta(BaseModel):
-    hour = DateTimeField()
+    ID = AutoField(unique = True, primary_key = True)
     titulo = CharField(max_length = 20)
     descripcion = CharField(max_length = 20)
+    agregado_on = DateTimeField(default=datetime.datetime.now)
 
     class Meta:
         table_name = 'tablaaltas'
 
+class registrosModif(BaseModel):
+    ID_modif = AutoField(unique = True, primary_key = True)
+    ID_record = IntegerField(null=False)
+    titulo_old = CharField(max_length = 20)
+    titulo_new = CharField(max_length = 20)
+    descripcion_old = CharField(max_length = 20)
+    descripcion_new = CharField(max_length = 20)
+    modif_on = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        table_name = 'tablamodif'
+
+class registrosElim(BaseModel):
+    ID_elim = AutoField(unique = True, primary_key = True)
+    ID_record = IntegerField(null=False)
+    titulo = CharField(max_length = 20)
+    descripcion = CharField(max_length = 20)
+    elim_on = DateTimeField(default=datetime.datetime.now)
+
+    class Meta:
+        table_name = 'tablaelim'
+
 db.connect()
 db.create_tables([Articulos])
 db.create_tables([registrosAlta])
+db.create_tables([registrosModif])
+db.create_tables([registrosElim])
