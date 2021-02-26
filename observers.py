@@ -37,32 +37,42 @@ class observadorAlta(observadoresApp):
 
 
 class observadorModificar(observadoresApp):
-    def __init__(self, obj):
-        self.lista_modif = obj
+    def __init__(self, objnew, objold):
+        self.lista_modif = objnew
+        self.lista_old = objold
         self.agregar(self)
         self.notificar()
     
     def update_log(self):
-        print("--" * 25)
-        print("El Observador de 'MODIFICACIONES' ha detectado la modificación de un registro en la BBDD. Se detalla a continuación:")
-        print("ID:", self.lista_modif[0])
-        print("Nuevo Título:", self.lista_modif[1])
-        print("Nueva Descripción:", self.lista_modif[2])
-        print("--" * 25)
+        if len(self.lista_old) == 3:          
+            print("--" * 25)
+            print("El Observador de 'MODIFICACIONES' ha detectado la modificación de un registro en la BBDD. Se detalla a continuación:")
+            print("ID:", self.lista_modif[0])
+            print("Nuevo Título:", self.lista_modif[1])
+            print("Nueva Descripción:", self.lista_modif[2])
+            print("--" * 25)
+        else:
+            pass
 
     def update_query(self):
-        # Aca falta incluir los registros del observador en la tabla modif.
-        record_update = registrosModif.insert({
-        registrosModif.ID_record: self.lista_modif[0],    
-        registrosModif.titulo_old: "test",
-        registrosModif.titulo_new: self.lista_modif[1],
-        registrosModif.descripcion_old: "test",
-        registrosModif.descripcion_new: self.lista_modif[2]
-        }).execute()
+        try: 
+            record_update = registrosModif.insert({
+            registrosModif.ID_record: self.lista_modif[0],    
+            registrosModif.titulo_old: self.lista_old[1],
+            registrosModif.titulo_new: self.lista_modif[1],
+            registrosModif.descripcion_old: self.lista_old[2],
+            registrosModif.descripcion_new: self.lista_modif[2]
+            }).execute()
+        except IndexError:
+            print("--" * 25)
+            print("El Observador de 'MODIFICACIONES' ha detectado el intento de una modificación en la BBDD.")
+            print("No hubo modificaciones en la BBDD - El ID no se encontró.")
+            print("--" * 25)
 
 class observadorEliminar(observadoresApp):
-    def __init__(self, obj):
+    def __init__(self, obj, objold):
         self.lista_elim = obj
+        self.lista_old = objold
         self.agregar(self)
         self.notificar()
     
@@ -79,5 +89,11 @@ class observadorEliminar(observadoresApp):
             print("--" * 25)
 
     def update_query(self):
-        # Aca falta incluir los registros del observador en la tabla elim.
-        pass
+        try:
+            record_update = registrosElim.insert({
+            registrosElim.ID_record: self.lista_old[0],    
+            registrosElim.titulo: self.lista_old[1],
+            registrosElim.descripcion: self.lista_old[2]
+            }).execute()
+        except TypeError:
+            pass

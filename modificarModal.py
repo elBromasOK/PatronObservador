@@ -12,12 +12,19 @@ def show(variables, popupModificar):
 
 def modifica(variables, popupModificar, elobjeto):
     popupModificar.destroy()
+    
     lista = []
     for variable in variables:
         lista.append(variable.get())
 
+    lista_old = []
+    for x in Articulos.select().where(Articulos.ID == lista[0]):
+        lista_old.append(x.ID)
+        lista_old.append(x.titulo)
+        lista_old.append(x.descripcion)
+
     # Patron observador
-    observer = observadorModificar(lista)
+    observer = observadorModificar(lista, lista_old)
 
     try:
         verificar_id = Articulos.get(Articulos.ID == lista[0])
