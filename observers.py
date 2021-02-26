@@ -1,9 +1,11 @@
 from base_datos import registrosAlta
+from base_datos import registrosModif
+from base_datos import registrosElim
 
 
 class observadoresApp:
     observadores = []
-    
+
     def agregar(self, obj):
         self.observadores.append(obj)
 
@@ -19,7 +21,7 @@ class observadorAlta(observadoresApp):
         self.lista_alta = obj
         self.agregar(self)
         self.notificar()
-    
+
     def update_log(self):
         print("--" * 25)
         print("El Observador de 'ALTAS' ha detectado un nuevo registro en la BBDD. Se detalla a continuación:")
@@ -50,8 +52,13 @@ class observadorModificar(observadoresApp):
 
     def update_query(self):
         # Aca falta incluir los registros del observador en la tabla modif.
-        pass
-
+        record_update = registrosModif.insert({
+        registrosModif.ID_record: self.lista_modif[0],    
+        registrosModif.titulo_old: "test",
+        registrosModif.titulo_new: self.lista_modif[1],
+        registrosModif.descripcion_old: "test",
+        registrosModif.descripcion_new: self.lista_modif[2]
+        }).execute()
 
 class observadorEliminar(observadoresApp):
     def __init__(self, obj):
